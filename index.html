@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dino Dash | Global Leaderboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div>
+        <h1>🦖 Dino Dash</h1>
+        <p>Jump the cactus • Beat the global high score</p>
+      </div>
+      <button id="soundBtn" class="secondary">🔊 Sound ON</button>
+    </header>
+
+    <section class="stats">
+      <div><span>Score</span><strong id="score">0</strong></div>
+      <div><span>🏆 Global High</span><strong id="highScore">0</strong></div>
+      <div><span>🎮 Games</span><strong id="runs">0</strong></div>
+    </section>
+
+    <section id="game" class="game" tabindex="0">
+      <div class="cloud cloud1">☁️</div>
+      <div class="cloud cloud2">☁️</div>
+      <div class="bird">🐦</div>
+      <div id="dino" class="dino">🦖</div>
+      <div id="cactus" class="cactus">🌵</div>
+      <div class="ground"></div>
+
+      <div id="message" class="overlay">
+        <div class="panel">
+          <div class="big">🦖</div>
+          <h2>Ready?</h2>
+          <p>Enter your name, then jump over the cactus.</p>
+          <input id="playerName" maxlength="30" placeholder="Your name" value="Abhishek">
+          <button id="startBtn" class="primary">🚀 Start Game</button>
+          <small>SPACE / ↑ / tap = jump</small>
+        </div>
+      </div>
+    </section>
+
+    <div class="controls">
+      <button id="jumpBtn" class="jump-btn">⬆️ JUMP</button>
+      <button id="restartBtn" class="secondary">🔄 RESTART</button>
+    </div>
+
+    <section class="leaderboard">
+      <div class="section-title">
+        <div>
+          <h2>🌍 Global Leaderboard</h2>
+          <p id="summary">Loading scores...</p>
+        </div>
+        <button id="refreshBtn" class="secondary">↻ Refresh</button>
+      </div>
+      <ol id="scoreHistory"></ol>
+    </section>
+
+    <p id="status" class="status"></p>
+  </main>
+  <script src="/game.js"></script>
+</body>
+</html>
