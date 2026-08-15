@@ -22,9 +22,6 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v4
 
-      - name: Debug OIDC claims
-        uses: github/actions-oidc-debugger@main
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6
         with:
@@ -33,8 +30,7 @@ jobs:
           allowed-account-ids: "018272775727"
 
       - name: Verify AWS identity
-        run: |
-          aws sts get-caller-identity
+        run: aws sts get-caller-identity
 
       - name: Login to Amazon ECR
         run: |
@@ -44,12 +40,24 @@ jobs:
               --password-stdin \
               "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com"
 
+      - name: Verify ECR repository
+        run: |
+          aws ecr describe-repositories \
+            --repository-names "$ECR_REPOSITORY" \
+            --region "$AWS_REGION"
+
       - name: Build Docker image
         run: |
           docker build \
-            -t "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest" .
+            -t "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest" \
+            .
 
       - name: Push Docker image to ECR
         run: |
           docker push \
             "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest"
+
+      - name: Deployment summary
+        run: |
+          echo "Docker image successfully pushed to ECR"
+          echo "Image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest"
