@@ -56,8 +56,3 @@ jobs:
         run: |
           docker push \
             "$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest"
-
-      - name: Deployment summary
-        run: |
-          echo "Docker image successfully pushed to ECR"
-          echo "Image: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest"
